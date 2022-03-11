@@ -7,7 +7,7 @@ test_clean_exif.py
 Tests for `clean_exif` module.
 """
 import unittest
-from clean_exif import clean_exif
+from clean_exif import CleanExif
 
 
 class TestCleanExif(unittest.TestCase):
