@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
-
 import os
-import sys
 import PIL.Image
 import PIL.ExifTags
 import random
@@ -41,7 +39,7 @@ class CleanExif:
                 Commands.NORENAME.value,
             ]:
                 continue
-            if self.__path_exists(item):
+            if self.path_exists(item):
                 ext_check = False
                 for ext in self.possible_extensions:
                     if item.endswith(ext):
@@ -94,7 +92,7 @@ class CleanExif:
         """Renames the file with the new name."""
         os.rename(self.__next_name, "test.png")
 
-    def __path_exists(self, path: str) -> bool:
+    def path_exists(self, path: str) -> bool:
         return os.path.exists(path)
 
     def __clear_metadata(self, path_of_image_to_clean):

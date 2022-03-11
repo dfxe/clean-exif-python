@@ -32,6 +32,10 @@ To print image metadata\
 
 ### Run tests
 
-This project uses the unittest library. Make sure there is always a 'test.png' (or any extensions) file so tests can start
+This project uses the unittest library. Make sure there is always a 'test.png' and a 'test.txt' (or any extensions) file so tests can start\
+Go into the tests folder:\
+`cd tests`
+
+and execute\
 
 `python3 -m unittest`

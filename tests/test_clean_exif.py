@@ -1,28 +1,38 @@
-# import test
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+test_clean_exif.py
+----------------------------------
+
+Tests for `clean_exif` module.
+"""
 import unittest
-from clean_exif import CleanExif
+from clean_exif import clean_exif
 
 
 class TestCleanExif(unittest.TestCase):
     def test_path_does_not_exist(self):
-        with self.assertRaises(FileNotFoundError):
-            CleanExif(["qqqqqqqqqddddddddvvvvv.png"])
+        with self.assertRaises(FileNotFoundError, msg="File does not exist"):
+            clean_exif.CleanExif(["qqqqqqqqqddddddddvvvvv.png"])
 
     def test_path_exists(self):
-        ce = CleanExif(["test.png"])
-        self.assertTrue(ce.__path_exists("test.png"))
+        """If this fails, add a test.png file to the test directory."""
+        self.assertTrue(CleanExif(["test.png"]).path_exists("test.png"))
 
-    """def test_extension_not_supported(self):
-        self.assertRaises(
-            ValueError,
-            "File extension not supported",
-        )
+    def test_extension_not_supported(self):
+        """If this fails, add a test.txt file to the test directory."""
+        with self.assertRaises(ValueError, msg="File extension not supported"):
+            clean_exif.CleanExif(["test.txt"])
 
     def test_main_input_type(self):
         self.main = CleanExif(["test.png"])
         self.assertIsInstance(self.main, CleanExif)
         self.assertIsInstance(self.main.img_paths, list)
         self.assertIsInstance(self.main.img_paths[0], str)
+
+    """
+
+    
 
     def test_possible_extensions(self):
         self.assertEqual(
