@@ -20,29 +20,34 @@ This project uses Pillow.
 
 ### How to use
 
-To remove exif data from a ".jpeg", ".jpg", ".png", ".gif", ".bmp" file\
+First make sure you're in the right folder
 ```
-python3 clean_exif.py <file_path> 
+cd lorem_exif
+```
+Then, to remove exif data from a ".jpeg", ".jpg", ".png", ".gif", ".bmp" file
+
+```
+python3 lorem_exif.py <file_path> 
 ```
 
-To disable rename and remove metadata from all file/s\
+To disable rename and remove metadata from all file/s
 ```
-python3 clean_exif.py --norename <file_path>
-```
-
-To get help\
-```
-python3 clean_exif.py --help 
+python3 lorem_exif.py --norename <file_path>
 ```
 
-To print image metadata\
+To get help
 ```
-python3 clean_exif.py --print <file_path> 
+python3 lorem_exif.py --help 
+```
+
+To print image metadata
+```
+python3 lorem_exif.py --print <file_path> 
 ```
 
 ### Run tests
 
-This project uses the unittest library. Make sure there is always a 'test.png' and a 'test.txt' (or any extensions) file so tests can start\
+This project uses the unittest library. Make sure there is always a 'test.png' and a 'test.txt' (or any extensions) file so tests can start
 
 A python virtual environment (venv) is recommended. 
 
