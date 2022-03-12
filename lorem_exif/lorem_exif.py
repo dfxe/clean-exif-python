@@ -24,6 +24,7 @@ class LoremExif:
         self.possible_extensions = [".jpeg", ".jpg", ".png", ".gif", ".bmp"]
         self.rename_files = True
         self.img_paths = img_paths
+
         self.next_name = ""
         temp = []
 
@@ -107,12 +108,16 @@ class LoremExif:
         data = list(image.getdata())
         image_without_exif = PIL.Image.new(image.mode, image.size)
         image_without_exif.putdata(data)
+
         self.next_name = (
                 self.__get_new_file_name() + "." + path_of_image_to_clean.split(".")[-1]
         )
         try:
             image_without_exif.save(
-                self.next_name if self.rename_files else path_of_image_to_clean
+                os.path.dirname(path_of_image_to_clean) + "/" + self.next_name if \
+                    len(os.path.dirname(path_of_image_to_clean)) > 0 else self.next_name
+                if self.rename_files
+                else path_of_image_to_clean
             )
             os.remove(path_of_image_to_clean)
         except PermissionError:

@@ -45,6 +45,9 @@ To print image metadata
 python3 lorem_exif.py --print <file_path> 
 ```
 
+### Where is my image?
+Your image can be found in the same directory, with a different name.
+
 ### Run tests
 
 This project uses the unittest library. Make sure there is always a 'test.png' and a 'test.txt' (or any extensions) file so tests can start
