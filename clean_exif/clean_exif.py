@@ -13,14 +13,16 @@ class Commands(Enum):
 
 
 class CleanExif:
-    def __init__(self, img_paths):
+    next_name: str
+
+    def __init__(self, img_paths: list):
         """Constructor, checks if the image exists and if it has the valid extension and sets the image paths accordingly.
         Skips all commands"""
 
         self.possible_extensions = [".jpeg", ".jpg", ".png", ".gif", ".bmp"]
         self.rename_files = True
         self.img_paths = img_paths
-        self.__next_name = ""
+        self.next_name = ""
         temp = []
 
         if img_paths is None:
@@ -59,7 +61,7 @@ class CleanExif:
         """Returns all metadata from an image, or the metadata of the first image if no arguments are specified."""
         if img_path is None:
             img_path = self.img_paths[0]
-        if not self.__path_exists(img_path):
+        if not self.path_exists(img_path):
             return None
         exif_data = PIL.Image.open(img_path)._getexif()
         if exif_data:
@@ -78,7 +80,8 @@ class CleanExif:
         for image_path in self.img_paths:
             self.__clear_metadata(image_path)
 
-    def help_command(self):
+    @staticmethod
+    def help_command():
         # Returns a help message
         return (
             "Usage: clean_exif.py [options] [file]\n"
@@ -88,11 +91,12 @@ class CleanExif:
             "--help\t\tPrints this help message\n"
         )
 
-    def backwards_rename(self):
+    def revert_rename(self):
         """Renames the file with the new name."""
-        os.rename(self.__next_name, "test.png")
+        os.rename(self.next_name, "test.png")
 
-    def path_exists(self, path: str) -> bool:
+    @staticmethod
+    def path_exists(path: str) -> bool:
         return os.path.exists(path)
 
     def __clear_metadata(self, path_of_image_to_clean):
@@ -101,12 +105,12 @@ class CleanExif:
         data = list(image.getdata())
         image_without_exif = PIL.Image.new(image.mode, image.size)
         image_without_exif.putdata(data)
-        self.__next_name = (
-            self.__get_new_file_name() + "." + path_of_image_to_clean.split(".")[-1]
+        self.next_name = (
+                self.__get_new_file_name() + "." + path_of_image_to_clean.split(".")[-1]
         )
         try:
             image_without_exif.save(
-                self.__next_name if self.rename_files else path_of_image_to_clean
+                self.next_name if self.rename_files else path_of_image_to_clean
             )
             os.remove(path_of_image_to_clean)
         except PermissionError:
@@ -115,14 +119,14 @@ class CleanExif:
     def __get_new_file_name(self):
         """Returns a random name with Lorem ipsum content."""
         next_name = ""
-        with open("file_name_source.txt", "r") as names_file:
+        with open("file_name_source.txt") as names_file:
             lines = (
                 names_file.read()
-                .replace("\n", "")
-                .replace(".", "")
-                .replace(",", "")
-                .lower()
-                .split(" ")
+                    .replace("\n", "")
+                    .replace(".", "")
+                    .replace(",", "")
+                    .lower()
+                    .split(" ")
             )
             lines = [x for x in lines if len(x) > 3]
             next_name += "-".join(random.sample(lines, 3))

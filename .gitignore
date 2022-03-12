@@ -3,3 +3,4 @@ __pycache__
 .DS_store
 src/__pycache__
 tests/__pycache__
+.idea
