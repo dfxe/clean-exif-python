@@ -14,7 +14,7 @@ class Commands(Enum):
     NORENAME = "--norename"
 
 
-class CleanExif:
+class LoremExif:
     next_name: str
 
     def __init__(self, img_paths: list):
@@ -86,7 +86,7 @@ class CleanExif:
     def help_command():
         # Returns a help message
         return (
-            "Usage: clean_exif.py [options] [file]\n"
+            "Usage: lorem_exif.py [options] [file]\n"
             "Options:\n"
             "--print\tPrints all metadata from the image\n"
             "--norename\tDoes not rename the file\n"
@@ -139,9 +139,7 @@ class CleanExif:
 
 
 if __name__ == "__main__":
-    # print(f"Name of the script      : {sys.argv[0]=}")
-    # print(f"Arguments of the script : {sys.argv[1:]=}")
-    ce = CleanExif(sys.argv[1:])
+    ce = LoremExif(sys.argv[1:])
     if Commands.HELP.value in ce.img_paths:
         print(ce.help_command())
     elif Commands.PRINT.value in ce.img_paths:
