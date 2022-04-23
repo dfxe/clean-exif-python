@@ -110,12 +110,13 @@ class LoremExif:
         image_without_exif.putdata(data)
 
         self.next_name = (
-                self.__get_new_file_name() + "." + path_of_image_to_clean.split(".")[-1]
+            self.__get_new_file_name() + "." + path_of_image_to_clean.split(".")[-1]
         )
         try:
             image_without_exif.save(
-                os.path.dirname(path_of_image_to_clean) + "/" + self.next_name if \
-                    len(os.path.dirname(path_of_image_to_clean)) > 0 else self.next_name
+                os.path.dirname(path_of_image_to_clean) + "/" + self.next_name
+                if len(os.path.dirname(path_of_image_to_clean)) > 0
+                else self.next_name
                 if self.rename_files
                 else path_of_image_to_clean
             )
@@ -129,11 +130,11 @@ class LoremExif:
         with open("file_name_source.txt") as names_file:
             lines = (
                 names_file.read()
-                    .replace("\n", "")
-                    .replace(".", "")
-                    .replace(",", "")
-                    .lower()
-                    .split(" ")
+                .replace("\n", "")
+                .replace(".", "")
+                .replace(",", "")
+                .lower()
+                .split(" ")
             )
             lines = [x for x in lines if len(x) > 3]
             next_name += "-".join(random.sample(lines, 3))
